@@ -27,12 +27,42 @@
       <ul>
         <li>Inicio</li>
         <li>Mensajes directos</li>
-        <li>Crear publicación</li>
+        <li (click)="ShowModal()">
+          {{
+            IsModalOpen == true
+              ? "Cerrar Crear Publicaciones"
+              : "Crear Publicaciones"
+          }}
+        </li>
         <li>Notificaciones</li>
       </ul>
     </div>
   </div>
 </header>
+
+@if (IsModalOpen != false) {
+<aside>
+  <div class="container">
+    <h1>Crea Tu publicación</h1>
+
+    <form action="">
+      <label for="">Descripción</label>
+
+      <input type="text" placeholder="Descripción" />
+
+      <label for="">Imagen</label>
+      <input type="url" name="" id="" />
+
+      <div class="container-button">
+        <button class="submit">Enviar</button>
+        <button class="cancel">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</aside>
+
+}
+
 <main>
   <div class="container-publications">
     @for (items of publications; track items.id) {

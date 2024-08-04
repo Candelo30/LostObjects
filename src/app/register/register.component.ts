@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { UsuariosService } from '../service/usuarios.service';
+import { UsuariosService } from '../service/users/usuarios.service';
 
 @Component({
   selector: 'app-register',

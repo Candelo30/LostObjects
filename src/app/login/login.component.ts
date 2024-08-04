@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UsuariosService } from '../service/usuarios.service';
-import { RouterLink } from '@angular/router';
+import { UsuariosService } from '../service/users/usuarios.service';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-login',
@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './login.component.css',
 })
 export class LoginComponent implements OnInit {
-  constructor(private userService: UsuariosService) {}
+  constructor(private userService: UsuariosService, private router: Router) {}
   username: string = '';
   password: string = '';
   ngOnInit(): void {
@@ -33,6 +33,9 @@ export class LoginComponent implements OnInit {
     );
     if (user) {
       alert('Sus datos son correctos');
+      this.router.navigate(['/home']);
+
+      user.nombre = this.userService.nombreUsuario;
     } else {
       alert('Sus datos son incorrectos');
     }

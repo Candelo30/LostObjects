@@ -7,6 +7,9 @@ import { Observable } from 'rxjs';
 })
 export class UsuariosService {
   constructor(private http: HttpClient) {}
+
+  nombreUsuario = '';
+
   APIUrl = 'http://localhost:3001';
   getData(endpoint: String): Observable<any> {
     console.log(`${this.APIUrl}/${endpoint}/`);

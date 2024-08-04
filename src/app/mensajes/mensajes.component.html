@@ -1,0 +1,50 @@
+<header>
+  <div class="brand">
+    <div class="brand-logo">
+      <img src="/brands.png" alt="Logo" />
+    </div>
+  </div>
+
+  <div class="container-search">
+    <input type="text" placeholder="Barra de búsqueda" class="input__search" />
+  </div>
+
+  <div class="container-right">
+    <button class="buttom__open-items">
+      <i
+        class="bx main-menu"
+        [class.bx-menu]="!toggleMenu"
+        [class.bx-x]="toggleMenu"
+        (click)="ShowMenu()"
+      >
+      </i>
+    </button>
+    <div class="container__avatar-user">
+      <div class="avatar"></div>
+    </div>
+
+    <div class="container-items__icons" [class]="{ show: toggleMenu == true }">
+      <ul>
+        <li>Inicio</li>
+        <li>Mensajes directos</li>
+        <li>Crear publicación</li>
+        <li>Notificaciones</li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container-chats">
+    <div class="container1">
+      <ul>
+        @for (items of TodosLosMensajes; track items) {
+
+        <li>{{ items.usuario }}</li>
+        }
+      </ul>
+    </div>
+
+    <div class="container2"></div>
+  </div>
+</main>

@@ -88,6 +88,59 @@ header {
   color: #007bff;
 }
 
+aside {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+}
+
+form > input {
+  width: 300px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #007bff;
+}
+
+.container-button {
+  display: flex;
+  gap: 10px;
+}
+
+.submit {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2em;
+  width: 150px;
+}
+
+.submit:hover {
+  background-color: #0044ff;
+}
+
+.container {
+  border: #007bff 1px solid;
+  border-radius: 20px;
+  padding: 10px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 /* PUBLICATIONS */
 
 main {
