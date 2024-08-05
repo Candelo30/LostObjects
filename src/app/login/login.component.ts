@@ -33,6 +33,9 @@ export class LoginComponent implements OnInit {
     );
     if (user) {
       alert('Sus datos son correctos');
+
+      this.userService.conseguirUsuariologuaeado(user.nombre);
+
       this.router.navigate(['/home']);
 
       user.nombre = this.userService.nombreUsuario;

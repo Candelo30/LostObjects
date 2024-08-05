@@ -95,3 +95,84 @@ main {
   height: calc(100vh - 108px); /* Altura del header */
   background-color: #007bff;
 }
+
+.container-chats {
+  height: 100%;
+  display: flex;
+}
+
+.container1 {
+  height: calc(100vh - 108.5px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 30%;
+  border-right: 1px solid #ddd;
+  padding: 10px;
+}
+
+.ListUsers {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.container2 {
+  height: calc(100vh - 108.5px);
+  width: 70%;
+  padding: 10px;
+}
+
+.chat-box {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.itemMessage {
+  display: flex;
+  flex-direction: column;
+}
+
+.myMessage {
+  flex: 1; /* Los elementos crecen para llenar el espacio disponible */
+  align-self: flex-end; /* Alinea cada elemento al inicio del contenedor (puede ser flex-start, center, flex-end, etc.) */
+}
+
+.messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.send-message {
+  display: flex;
+  border-top: 1px solid #ddd;
+  padding: 10px;
+}
+
+.send-message input {
+  flex-grow: 1;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.send-message button {
+  padding: 5px 10px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  margin-left: 10px;
+  border-radius: 4px;
+}
+
+.users {
+  list-style: none;
+  padding: 10px;
+  background-color: rgba(197, 197, 197, 0.5);
+  width: 100%;
+}

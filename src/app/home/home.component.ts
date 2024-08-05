@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { PublicationsService } from '../service/publications/publications.service';
 import { UsuariosService } from '../service/users/usuarios.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -21,6 +22,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData();
+    this.nombreUsuario = this.userService.nombreUsuario;
   }
   publications: any = [];
 
@@ -43,5 +45,8 @@ export class HomeComponent implements OnInit {
     this.publicationService.getData('pubication').subscribe((data) => {
       this.publications = data;
     });
+
+    this.nombreUsuario = this.userService.nombreUsuario;
+    console.log(this.nombreUsuario);
   }
 }

@@ -34,17 +34,38 @@
   </div>
 </header>
 
-<main>
-  <div class="container-chats">
-    <div class="container1">
-      <ul>
-        @for (items of TodosLosMensajes; track items) {
+<div class="container-chats">
+  <div class="container1">
+    <ul class="ListUsers">
+      @for (items of users; track items) {
 
-        <li>{{ items.usuario }}</li>
-        }
-      </ul>
-    </div>
-
-    <div class="container2"></div>
+      <li class="users" (click)="ConseguirUsuario(items.nombre)">
+        {{ items.nombre }}
+      </li>
+      }
+    </ul>
   </div>
-</main>
+
+  <div class="container2">
+    <div class="chat-box">
+      <div class="messages">
+        <ul class="itemMessage">
+          @for (items of mensajes; track items) {
+
+          <li [class.myMessage]="usuario === items.usuario">
+            {{ items.usuario }}: {{ items.message }}
+          </li>
+          }
+        </ul>
+      </div>
+      <div class="send-message">
+        <input
+          type="text"
+          [(ngModel)]="nuevoMensaje"
+          placeholder="Escribe un mensaje..."
+        />
+        <button (click)="enviarMensaje()">Enviar</button>
+      </div>
+    </div>
+  </div>
+</div>

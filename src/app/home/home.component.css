@@ -58,6 +58,7 @@ header {
 }
 
 .container-items__icons {
+  z-index: 10;
   top: 0;
   left: 0;
   position: absolute;
@@ -125,10 +126,28 @@ form > input {
   font-weight: bold;
   font-size: 1.2em;
   width: 150px;
+
+  border-radius: 10px;
+  border: none;
 }
 
 .submit:hover {
   background-color: #0044ff;
+}
+
+.cancel {
+  background-color: #ff0000;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2em;
+  width: 150px;
+
+  border-radius: 10px;
+  border: none;
+}
+
+.cancel:hover {
+  background-color: #e20328;
 }
 
 .container {

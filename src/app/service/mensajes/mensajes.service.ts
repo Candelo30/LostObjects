@@ -11,4 +11,8 @@ export class MensajesService {
   getData(endpoint: String): Observable<any> {
     return this.http.get(`${this.APIUrl}/${endpoint}/`);
   }
+
+  addMessage(endpoint: String, data: any) {
+    return this.http.post(`${this.APIUrl}/${endpoint}/`, data);
+  }
 }

@@ -10,6 +10,11 @@ export class UsuariosService {
 
   nombreUsuario = '';
 
+  conseguirUsuariologuaeado(user: string) {
+    this.nombreUsuario = user;
+    console.log(this.nombreUsuario);
+  }
+
   APIUrl = 'http://localhost:3001';
   getData(endpoint: String): Observable<any> {
     console.log(`${this.APIUrl}/${endpoint}/`);
