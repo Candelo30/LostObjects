@@ -8,9 +8,13 @@ import { Observable } from 'rxjs';
 export class PublicationsService {
   constructor(private http: HttpClient) {}
 
-  APIUrl = 'http://localhost:3001';
+  APIUrl = 'http://localhost:3003';
 
   getData(endpoint: String): Observable<any> {
     return this.http.get(`${this.APIUrl}/${endpoint}/`);
+  }
+
+  postData(endpoint: string, data : any): Observable<any>{
+    return this.http.post(`${this.APIUrl}/${endpoint}/`,data);
   }
 }

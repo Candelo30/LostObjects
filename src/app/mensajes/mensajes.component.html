@@ -53,7 +53,7 @@
           @for (items of mensajes; track items) {
 
           <li [class.myMessage]="usuario === items.usuario">
-            {{ items.usuario }}: {{ items.message }}
+            {{ items.usuario_destinatario }}: {{ items.message }}
           </li>
           }
         </ul>

@@ -30,7 +30,7 @@ export class RegisterComponent {
   };
 
   getData() {
-    this.userService.getData('usuarios').subscribe((data) => {
+    this.userService.getData('api/usuario').subscribe((data) => {
       this.TodosLosDatos = data;
       console.log(this.TodosLosDatos);
     });
@@ -38,7 +38,7 @@ export class RegisterComponent {
 
   onSubmit(form: NgForm) {
     if (form.valid) {
-      this.userService.addUser('usuarios', this.newUser).subscribe(
+      this.userService.addUser('api/usuario', this.newUser).subscribe(
         (Response) => {
           alert('Has hecho el registro con éxito');
           this.router.navigate(['/login']);

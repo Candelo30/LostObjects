@@ -6,7 +6,8 @@
   </div>
 
   <div class="container-search">
-    <input type="text" placeholder="Barra de búsqueda" class="input__search" />
+    <input type="search" placeholder="Barra de búsqueda" class="input__search" [(ngModel)]="nombre_busqueda" />
+     <button >buscar</button>
   </div>
 
   <div class="container-right">
@@ -49,13 +50,13 @@
     <form action="">
       <label for="">Descripción</label>
 
-      <input type="text" placeholder="Descripción" />
+      <input type="text" placeholder="Descripción" name="descripcion" [(ngModel)]="descripcion" />
 
       <label for="">Imagen</label>
-      <input type="url" name="" id="" />
+      <input type="url" name="imagen" id="" [(ngModel)]="imagen" />
 
       <div class="container-button">
-        <button class="submit">Enviar</button>
+        <input class="submit" (click)="postData()" value="Enviar">
         <button class="cancel">Cancelar</button>
       </div>
     </form>
@@ -75,7 +76,7 @@
         </p>
       </div>
 
-      <p>{{ items.descricion }}</p>
+      <p>{{ items.descripcion }}</p>
 
       <div class="container-img">
         <img [src]="items.imagen" alt=" " />
@@ -112,4 +113,7 @@
     <p>No se encuentra nada aquí</p>
     }
   </div>
+
+
+  
 </main>

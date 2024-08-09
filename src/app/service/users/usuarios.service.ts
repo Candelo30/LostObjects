@@ -15,7 +15,7 @@ export class UsuariosService {
     console.log(this.nombreUsuario);
   }
 
-  APIUrl = 'http://localhost:3001';
+  APIUrl = 'http://127.0.0.1:8000';
   getData(endpoint: String): Observable<any> {
     console.log(`${this.APIUrl}/${endpoint}/`);
     return this.http.get(`${this.APIUrl}/${endpoint}/`);
