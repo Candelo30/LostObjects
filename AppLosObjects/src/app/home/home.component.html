@@ -1,0 +1,134 @@
+<header>
+  <div class="brand">
+    <div class="brand-logo">
+      <img src="/brands.png" alt="Logo" />
+    </div>
+  </div>
+
+  <div class="container-search">
+    <input
+      type="search"
+      placeholder="Barra de búsqueda"
+      class="input__search"
+      [(ngModel)]="nombre_busqueda"
+    />
+  </div>
+
+  <div class="container-right">
+    <button class="buttom__open-items">
+      <i
+        class="bx main-menu"
+        [class.bx-menu]="!toggleMenu"
+        [class.bx-x]="toggleMenu"
+        (click)="ShowMenu()"
+      >
+      </i>
+    </button>
+    <div class="container__avatar-user">
+      <div class="avatar"></div>
+    </div>
+
+    <div class="container-items__icons" [class]="{ show: toggleMenu == true }">
+      <ul>
+        <li routerLink="/home">Inicio</li>
+        <li routerLink="/messages">Mensajes directos</li>
+        <li (click)="ShowModal()">
+          {{
+            IsModalOpen == true
+              ? "Cerrar Crear Publicaciones"
+              : "Crear Publicaciones"
+          }}
+        </li>
+        <li routerLink="/profile">Perfil</li>
+        <li (click)="logout()">Cerrar sesion</li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+@if (IsModalOpen != false) {
+
+<aside>
+  <div class="container">
+    <h1>Crea Tu publicación</h1>
+
+    <form action="">
+      <label for="">Descripción</label>
+
+      <input
+        type="text"
+        placeholder="Descripción"
+        name="descripcion"
+        [(ngModel)]="descripcion"
+      />
+
+      <label for="">Imagen</label>
+      <input
+        type="file"
+        name="imagen"
+        id=""
+        accept="image/*"
+        (change)="onFiles($event)"
+      />
+
+      <div class="container-button">
+        <button class="submit" (click)="postData()" value="Enviar">
+          Enviar
+        </button>
+        <button class="cancel" (click)="ShowModal()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</aside>
+
+}
+
+<main>
+  <div class="container-publications">
+    @for (items of publications; track items.id) {
+    <div class="box">
+      <div class="box-info">
+        <p>
+          <b>{{ items.nombre_usuario }} </b>
+          <small> {{ items.fecha_publicacion }} </small>
+        </p>
+      </div>
+
+      <p>{{ items.descripcion }}</p>
+
+      <div class="container-img">
+        <img [src]="items.imagen" alt=" " />
+      </div>
+
+      <div class="container-social-icons">
+        <nav class="nav-social">
+          <ul class="menu-social">
+            <li class="social-item">
+              <button class="menu-buttons__contents">
+                <i class="bx bx-like social-icon"></i>
+                Me gusta {{ items.me_gusta }}
+              </button>
+            </li>
+            <li class="social-item">
+              <button class="menu-buttons__contents">
+                <i class="bx bx-chat social-icon"></i>
+                Comentarios {{ items.comentarios }}
+              </button>
+            </li>
+            <li class="social-item">
+              <button class="menu-buttons__contents">
+                <i class="bx bx-share-alt social-icon"></i>
+                Compartir
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="container-chats"></div>
+    </div>
+    } @empty {
+    <p>No se encuentra nada aquí</p>
+    }
+  </div>
+</main>
