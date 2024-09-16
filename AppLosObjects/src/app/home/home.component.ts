@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { routes } from '../app.routes';
 
+
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -17,13 +19,14 @@ export class HomeComponent implements OnInit {
   // Estos son los datos que tienes que crear en API o base de datos ! Para las Publicaciones
 
   nombreUsuario = '';
-  descripcion: string = '';
-  imagen: string = '';
+  descripcion : string = '';
+  imagen : string = '';
   idUser = 0;
   nombre_busqueda: string = '';
-  selectedFile: File | null = null;
-  base64Image: string | null = null;
+  selectedFile: File | null= null;
+  base64Image : string | null = null;
   previewUrl: string | null = null;
+  foto = '';
 
   constructor(
     private publicationService: PublicationsService,
@@ -37,16 +40,26 @@ export class HomeComponent implements OnInit {
     const loggedInUser = this.cookies.get('loggedInUser');
     if (loggedInUser) {
       const user = JSON.parse(loggedInUser);
-      this.nombreUsuario = user.nombre_usuario;
+      this.foto = "http://localhost:8000/" + user.imagen_perfil;
+      
+
+      
 
       // Asignar más información del usuario
       this.idUser = user.id;
 
-      console.log('Usuario id: ', this.idUser);
+      console.log("Usuario id: ", this.idUser)
+
 
       // Llamar a otros métodos como `publications` si es necesario
-    } else {
-      this.router.navigate(['/login']);
+      
+
+
+    }
+
+    else {
+      this.router.navigate(["/login"])
+    
     }
   }
   publications: any = [];
@@ -61,7 +74,11 @@ export class HomeComponent implements OnInit {
 
   ShowModal() {
     this.IsModalOpen = !this.IsModalOpen;
+    if (this.IsModalOpen == true) {
+      this.ShowMenu();
+    }
   }
+  
 
   getData() {
     this.publicationService.getData('mostrar').subscribe((data) => {
@@ -69,45 +86,46 @@ export class HomeComponent implements OnInit {
       this.nombreUsuario = this.userService.nombreUsuario;
     });
 
+    
     console.log(this.nombreUsuario);
   }
 
-  onFiles(event: any): void {
+  onFiles(event: any): void{
     this.selectedFile = event.target.files[0];
-    if (this.selectedFile) {
+    if(this.selectedFile){
       const reader = new FileReader();
-      reader.onload = () => {
+      reader.onload = () =>{
         this.base64Image = reader.result as string;
         this.previewUrl = this.base64Image;
       };
       reader.readAsDataURL(this.selectedFile);
     }
-  }
 
-  postData() {
-    const data_publication = new FormData();
-    console.log('Usuario publicacion: ', this.idUser);
+   }
+
+
+  postData(){
+    const  data_publication = new FormData();
+    console.log("Usuario publicacion: ", this.idUser)
     data_publication.append('nombre_usuario', this.idUser.toString());
-    data_publication.append('descripcion', this.descripcion.toString());
-    data_publication.append('fecha_publicacion', new Date().toISOString());
+    data_publication.append('descripcion',this.descripcion.toString());
+    data_publication.append('fecha_publicacion',new Date().toISOString());
+   
 
-    if (this.selectedFile) {
-      data_publication.append('imagen', this.selectedFile);
+    if(this.selectedFile){
+      data_publication.append('imagen',this.selectedFile);
     }
 
-    if (this.descripcion !== '') {
-      this.publicationService.postData('publicar', data_publication).subscribe(
-        (Response) => {
-          alert('Has enviado los datos correctamente');
-        },
-        (Error) => {
-          alert('Sus datos no se han enviados correctamente');
-          console.error(Error);
-        }
-      );
+    if(this.descripcion !== ''){
+      this.publicationService.postData('publicar', data_publication).subscribe((Response) => {
+      alert("Has enviado los datos correctamente")
+    }, (Error) => {
+      alert("Sus datos no se han enviados correctamente")
+      console.error(Error)
+    });
     }
   }
-  logout() {
+  logout(){
     this.userService.logout();
     this.router.navigate(['/login']);
   }
@@ -115,6 +133,6 @@ export class HomeComponent implements OnInit {
   // buscar():void{
   // this.data
   // console.log(this.nombre_busqueda);
-
+  
   // }
 }

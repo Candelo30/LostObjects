@@ -1,4 +1,135 @@
+ 
+ 
+ /*css del icono de perfil*/
+.profile-icon {
+  width: 250px; /* Tamaño del ícono de perfil */
+  height: 250px; /* Mismo tamaño para mantener la proporción */
+  border-radius: 50%; /* Hacer la imagen circular */
+  border: 2px solid rgba(0, 0, 0, 0.1); /* Borde ligero */
+  object-fit: cover; /* Asegura que la imagen se ajuste sin distorsionarse */
+  display: block; /* Elimina el espacio debajo de la imagen (si es necesario) */
+  background-color: #f0f0f0; /* Fondo ligero para cuando la imagen no se carga */
+}
+
+/* Estilo para un contenedor opcional */
+.profile-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 250px; /* Tamaño del contenedor */
+  height: 250px; /* Mismo tamaño que el ícono */
+}
+
+ 
+ 
+ /*css de show menu */
+ .container-items__icons {
+  position: absolute;
+  top: 50px; /* Ajusta según tu diseño */
+  right: 0;
+  width: 250px;
+  background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semi-transparente */
+  border: 1px solid rgba(0, 0, 0, 0.1); /* Borde ligeramente visible */
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra ligera */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.container-items__icons.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.container-items__icons ul {
+  list-style: none;
+  margin: 0;
+  padding: 10px;
+}
+
+.container-items__icons ul li {
+  padding: 10px;
+  margin: 5px 0;
+  cursor: pointer;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.7); /* Texto gris oscuro semi-transparente */
+  text-align: left;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.container-items__icons ul li:hover {
+  background-color: rgba(0, 123, 255, 0.2); /* Azul claro semi-transparente al pasar el ratón */
+  color: rgba(0, 123, 255, 0.8); /* Azul más fuerte en el texto */
+  border-radius: 5px;
+}
+
+.container-items__icons ul li a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.container-items__icons ul li.active {
+  font-weight: bold;
+  color: rgba(0, 123, 255, 1); /* Azul sólido para el elemento activo */
+}
+
+ 
+ 
+ 
+ /*css  de formulario de actualizar foto*/
+  form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+  }
   
+  h4 {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  input[type="file"] {
+    display: block;
+    margin: 0 auto 20px auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  
+  button {
+    display: block;
+    background-color: #1f53c5;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  button:hover {
+    background-color: #1322c4;
+  }
+  
+  button:active {
+    background-color: #0867bb;
+  }
   
   
   header {
@@ -119,6 +250,9 @@
   }
   
   .container-avatar {
+    display: flex;
+    flex-direction: column;
+    align-items:center ;
     position: relative;
     padding: 20px;
     width: 100%;
@@ -144,7 +278,7 @@
   
   
   
-   .cambiar-foto{
+   /* .cambiar-foto{
     width: 40px;
     height: 40px;
     background-color: #007bff;
@@ -158,7 +292,7 @@
     left: 60px;
   
    }
-  
+   */
    
   
   

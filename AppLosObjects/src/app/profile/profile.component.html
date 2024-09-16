@@ -37,18 +37,22 @@
 <div class="scroll-container">
     <div class="container">
       <div class="photos">
-        <div class="container-avatar">
-          
-    
-          <img [src]="foto" alt="">
-
-          <form action="">
+        <div class="container-avatar">  
+          <div class="profile-icon-container">
+            <img [src]="foto" class="profile-icon" alt="Perfil">
+          </div>
+          <div><form action="">
             <h4>Cambiar foto de perfil</h4>
             <input type="file" (change)="onFilesChange($event)">
             <button type="submit" (click)="actualizar()">Confirmar</button>
 
           
         </form>
+      </div>
+    
+          
+
+          
           
          
 

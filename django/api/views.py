@@ -6,25 +6,49 @@ from .serializers import UserSerializer, PubliSerializer
 from rest_framework import  status
 from .models import CustomUser,publication
 from rest_framework.decorators import api_view,authentication_classes, permission_classes, parser_classes
+from rest_framework.permissions import AllowAny
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.parsers import MultiPartParser, FormParser
 
 
+# @api_view(['POST'])
+# @permission_classes([AllowAny])
+# def register(request):
+#     serializer = UserSerializer(data=request.data)
+
+#     if serializer.is_valid():
+#         serializer.save()
+
+#         user= CustomUser.objects.get(username=serializer.data['username'])
+#         user.set_password(serializer.data['password'])
+#         user.save()
+
+#         token= Token.objects.create(user=user)
+#         return Response({'token': token.key, 'user': serializer.data},status=status.HTTP_201_CREATED)
+#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 @api_view(['POST'])
+@permission_classes([AllowAny])
 def register(request):
     serializer = UserSerializer(data=request.data)
 
     if serializer.is_valid():
-        serializer.save()
+        # Guarda el usuario sin la contraseña aún
+        user = serializer.save()
 
-        user= CustomUser.objects.get(username=serializer.data['username'])
+        # Ahora hasheamos la contraseña y guardamos de nuevo
         user.set_password(serializer.data['password'])
         user.save()
 
-        token= Token.objects.create(user=user)
-        return Response({'token': token.key, 'user': serializer.data},status=status.HTTP_201_CREATED)
+        # Generar el token
+        token = Token.objects.create(user=user)
+
+        # Retornar la respuesta con el token
+        return Response({'token': token.key, 'user': serializer.data}, status=status.HTTP_201_CREATED)
+    
+    # Si los datos no son válidos
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
@@ -70,13 +94,7 @@ def mostrar(request):
     return Response(serializer.data)
 
 
-# @api_view(['PATCH'])
-# @authentication_classes([TokenAuthentication])
-# @permission_classes([IsAuthenticated])
-# def actualizar(request):
-#     foto_perfil = CustomUser.objects.all()
-#     serializer = UserSerializer(foto_perfil, many=True)
-#     return Response(serializer.data)
+
 
 
 @api_view(['PATCH'])

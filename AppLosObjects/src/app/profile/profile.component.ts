@@ -91,6 +91,7 @@ export class ProfileComponent implements OnInit{
       (data) => {
         this.imagen_perfil = data.imagen_perfil; // Maneja la respuesta del servidor
         console.log('Imagen actualizada con éxito');
+        this.onFilesChange
       },
       (error) => {
         console.error('Error al actualizar la imagen', error);

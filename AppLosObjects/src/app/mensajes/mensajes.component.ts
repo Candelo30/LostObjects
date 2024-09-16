@@ -3,6 +3,7 @@ import { MensajesService } from '../service/mensajes/mensajes.service';
 import { FormsModule } from '@angular/forms';
 import { UsuariosService } from '../service/users/usuarios.service';
 import { Router, RouterLink } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-mensajes',
@@ -15,7 +16,8 @@ export class MensajesComponent implements OnInit {
   constructor(
     private messageService: MensajesService,
     private UsuariosService: UsuariosService,
-    private router : Router
+    private router : Router,
+    private cookies : CookieService
   ) {}
 
   toggleMenu: boolean = false;
@@ -27,6 +29,7 @@ export class MensajesComponent implements OnInit {
   imagen = '';
   mensajesFiltrados: any[] = [];
   IsOpenInput: boolean = false;
+  foto = '';
 
   ConseguirUsuario(user: string) {
     this.usuario_destinatario = user;
@@ -69,6 +72,22 @@ export class MensajesComponent implements OnInit {
   ngOnInit(): void {
     this.getMesanjes();
     this.getUsers();
+    const loggedInUser = this.cookies.get('loggedInUser');
+    if (loggedInUser) {
+      const user = JSON.parse(loggedInUser);
+      this.foto = "http://localhost:8000/" + user.imagen_perfil;
+      
+
+      
+
+     
+
+    }
+
+    else {
+      this.router.navigate(["/login"])
+    
+    }
   }
 
   getMesanjes() {

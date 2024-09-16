@@ -42,7 +42,7 @@ export class RegisterComponent {
       this.userService.addUser(this.newUser).subscribe(
         (Response) => {
           alert('Has hecho el registro con éxito');
-          // this.userService.setToken(Response.token);
+          this.userService.setToken(Response.token);
           this.router.navigate(['/login']);
          
         },

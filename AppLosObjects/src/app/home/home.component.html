@@ -6,12 +6,8 @@
   </div>
 
   <div class="container-search">
-    <input
-      type="search"
-      placeholder="Barra de búsqueda"
-      class="input__search"
-      [(ngModel)]="nombre_busqueda"
-    />
+    <input type="search" placeholder="Barra de búsqueda" class="input__search" [(ngModel)]="nombre_busqueda" />
+     
   </div>
 
   <div class="container-right">
@@ -25,7 +21,9 @@
       </i>
     </button>
     <div class="container__avatar-user">
-      <div class="avatar"></div>
+      <div class="profile-icon-container">
+        <img [src]="foto" class="profile-icon" alt="Perfil">
+      </div>
     </div>
 
     <div class="container-items__icons" [class]="{ show: toggleMenu == true }">
@@ -55,27 +53,14 @@
     <form action="">
       <label for="">Descripción</label>
 
-      <input
-        type="text"
-        placeholder="Descripción"
-        name="descripcion"
-        [(ngModel)]="descripcion"
-      />
+      <input type="text" placeholder="Descripción" name="descripcion" [(ngModel)]="descripcion" />
 
       <label for="">Imagen</label>
-      <input
-        type="file"
-        name="imagen"
-        id=""
-        accept="image/*"
-        (change)="onFiles($event)"
-      />
+      <input type="file"  name="imagen" id="" accept="image/*" (change)="onFiles($event)" />
 
       <div class="container-button">
-        <button class="submit" (click)="postData()" value="Enviar">
-          Enviar
-        </button>
-        <button class="cancel" (click)="ShowModal()">Cancelar</button>
+        <button class="submit" (click)="postData()" value="Enviar">Enviar</button>
+        <button class="cancel">Cancelar</button>
       </div>
     </form>
   </div>
@@ -131,4 +116,7 @@
     <p>No se encuentra nada aquí</p>
     }
   </div>
+
+
+  
 </main>

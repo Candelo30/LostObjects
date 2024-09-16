@@ -20,7 +20,9 @@
       </i>
     </button>
     <div class="container__avatar-user">
-      <div class="avatar"></div>
+      <div class="profile-icon-container">
+        <img [src]="foto" class="profile-icon" alt="Perfil">
+      </div>
     </div>
 
     <div class="container-items__icons" [class]="{ show: toggleMenu == true }">
@@ -33,6 +35,7 @@
     </div>
   </div>
 </header>
+
 
 <div class="container-chats">
   <div class="container1">
