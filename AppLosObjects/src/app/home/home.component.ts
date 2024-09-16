@@ -84,6 +84,7 @@ export class HomeComponent implements OnInit {
     this.publicationService.getData('mostrar').subscribe((data) => {
       this.publications = data;
       this.nombreUsuario = this.userService.nombreUsuario;
+      console.log(data)
     });
 
     
