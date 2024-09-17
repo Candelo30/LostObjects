@@ -17,7 +17,7 @@ import { routes } from '../app.routes';
 })
 export class HomeComponent implements OnInit {
   // Estos son los datos que tienes que crear en API o base de datos ! Para las Publicaciones
-
+  baseUrl: string = 'http://localhost:8000/media/';
   nombreUsuario = '';
   descripcion : string = '';
   imagen : string = '';
@@ -82,14 +82,18 @@ export class HomeComponent implements OnInit {
 
   getData() {
     this.publicationService.getData('mostrar').subscribe((data) => {
-      this.publications = data;
-      this.nombreUsuario = this.userService.nombreUsuario;
-      console.log(data)
+      this.publications = data.map((publication: any) => {  // Cambié 'item' a 'publication'
+        const imageUrl = publication.imagen.startsWith('http')  // Cambié 'imagen' a 'imageUrl' para evitar conflicto
+          ? publication.imagen
+          : `${this.baseUrl}${publication.imagen.replace(/^\/media\//, '')}`;
+        return {
+          ...publication,
+          imagen: imageUrl // Asigno 'imageUrl' a 'imagen'
+        };
+      });
     });
-
-    
-    console.log(this.nombreUsuario);
   }
+  
 
   onFiles(event: any): void{
     this.selectedFile = event.target.files[0];
@@ -124,6 +128,8 @@ export class HomeComponent implements OnInit {
       alert("Sus datos no se han enviados correctamente")
       console.error(Error)
     });
+    this.ShowModal()
+    window.location.reload()
     }
   }
   logout(){

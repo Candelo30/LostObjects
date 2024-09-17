@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { UsuariosService } from '../service/users/usuarios.service';
 import { CookieService } from 'ngx-cookie-service';
 import { PublicationsService } from '../service/publications/publications.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-profile',
@@ -13,6 +14,7 @@ import { PublicationsService } from '../service/publications/publications.servic
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent implements OnInit{
+  baseUrl: string = 'http://localhost:8000/media/';
 
   first_name = '';
   last_name = '';
@@ -20,9 +22,9 @@ export class ProfileComponent implements OnInit{
   email = '';
   telefono = '';
   imagen_perfil : File |null = null;
-  foto = '';
+  foto : string = '';
 
-  constructor(private userService: UsuariosService, private cookies : CookieService, private publiService : PublicationsService,private router: Router){
+  constructor(private userService: UsuariosService, private cookies : CookieService, private publiService : PublicationsService,private router: Router, private cdr : ChangeDetectorRef){
 
   }
 
@@ -80,25 +82,50 @@ export class ProfileComponent implements OnInit{
     }
   }
 
-  actualizar() {
-    if(this.imagen_perfil){
-      const formData = new FormData();
+//   actualizar() : void{
+//     if(this.imagen_perfil){
+//       const formData = new FormData();
     
-    // Aquí asumimos que `this.imagen_perfil` es el archivo de imagen seleccionado
-    formData.append('imagen_perfil', this.imagen_perfil);
+//     // Aquí asumimos que `this.imagen_perfil` es el archivo de imagen seleccionado
+//     formData.append('imagen_perfil', this.imagen_perfil);
   
+//     this.userService.actualizar_foto(formData).subscribe(
+//       (data) => {
+//         this.imagen_perfil = data.imagen_perfil; // Maneja la respuesta del servidor
+//         console.log('Imagen actualizada con éxito');
+//         this.onFilesChange
+//       },
+//       (error) => {
+//         console.error('Error al actualizar la imagen', error);
+//       }
+//     );
+//     }
+// }
+
+actualizar() {
+  if (this.imagen_perfil) {
+    const formData = new FormData();
+    formData.append('imagen_perfil', this.imagen_perfil);
+
     this.userService.actualizar_foto(formData).subscribe(
       (data) => {
-        this.imagen_perfil = data.imagen_perfil; // Maneja la respuesta del servidor
+        const timestamp = new Date().getTime();
+        // Forzar la actualización de la imagen agregando un timestamp a la URL
+        this.foto = `${data.imagen_perfil}?t=${timestamp}`;
+
         console.log('Imagen actualizada con éxito');
-        this.onFilesChange
+        
+        // Forzar la detección de cambios
+        this.cdr.detectChanges();
       },
       (error) => {
         console.error('Error al actualizar la imagen', error);
       }
     );
-    }
+  }
 }
+
+
 
 ShowModal() {
   this.IsModalOpen = !this.IsModalOpen;

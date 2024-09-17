@@ -7,9 +7,16 @@ from io import BytesIO
 
 
 class UserSerializer(serializers.ModelSerializer):
-  class Meta:
+    class Meta:
         model = CustomUser
-        fields = ['id', 'username', 'password', 'first_name','last_name','telefono','edad','ubicacion','email','imagen_perfil']
+        fields = ['id', 'username', 'password', 'first_name', 'last_name', 'telefono', 'edad', 'ubicacion', 'email', 'imagen_perfil']
+    
+    def create(self, validated_data):
+        user = CustomUser(**validated_data)
+        user.set_password(validated_data['password'])  # Encriptar la contraseña
+        user.save()
+        return user
+    
 
 
 class PubliSerializer(serializers.ModelSerializer):
