@@ -21,7 +21,7 @@
     </button>
     <div class="container__avatar-user">
       <div class="profile-icon-container">
-        <img [src]="foto" class="profile-icon" alt="Perfil">
+        <img [src]="foto" class="profile-icon" alt="Perfil" />
       </div>
     </div>
 
@@ -36,55 +36,50 @@
   </div>
 </header>
 
-
 <div class="container-chats">
   <div class="container1">
     <ul class="ListUsers">
-      @for (items of users; track items) {
-
-      <li class="users" (click)="ConseguirUsuario(items.nombre)">
-        {{ items.nombre }}
+      <li
+        class="users"
+        *ngFor="let user of users"
+        (click)="ConseguirUsuario(user.nombre)"
+      >
+        {{ user.nombre }}
       </li>
-      }
     </ul>
   </div>
 
   <div class="container2">
     <div class="chat-box">
-      <div class="name_user">
-        {{ usuario_destinatario }}
-      </div>
+      <div class="name_user">{{ usuario_destinatario }}</div>
       <div class="messages">
         <ul class="itemMessage">
-          @for (items of mensajes; track items) {
-
-          <li [class.myMessage]="usuario === items.usuario">
-            {{ items.usuario }}: {{ items.message }}
-            <div class="container-img">
-              @if (items.imagen != '' ) {
-              <img [src]="items.imagen" alt="" />
-              }
+          <li
+            *ngFor="let item of mensajes"
+            [class.myMessage]="usuario === item.usuario"
+          >
+            {{ item.usuario }}: {{ item.message }}
+            <div class="container-img" *ngIf="item.imagen">
+              <img [src]="item.imagen" alt="" />
             </div>
           </li>
-          }
         </ul>
       </div>
 
       <div class="send-message">
-        @if (IsOpenInput) {
         <input
+          *ngIf="IsOpenInput"
           type="url"
-          placeholder="Ingresa la url de la imagen"
+          placeholder="Ingresa la URL de la imagen"
           [(ngModel)]="imagen"
         />
-        }
         <i class="bx bx-image-add" (click)="IsOpenInput = !IsOpenInput"></i>
         <input
           type="text"
           [(ngModel)]="nuevoMensaje"
           placeholder="Escribe un mensaje..."
         />
-        <button (click)="enviarMensaje()">Enviar</button>
+        <button (click)="sendMessage()">Enviar</button>
       </div>
     </div>
   </div>

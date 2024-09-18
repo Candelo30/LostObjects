@@ -1,18 +1,25 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Socket } from 'ngx-socket-io';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MensajesService {
-  constructor(private http: HttpClient) {}
-  APIUrl = 'http://localhost:3003';
-  getData(endpoint: String): Observable<any> {
-    return this.http.get(`${this.APIUrl}/${endpoint}/`);
+  constructor(private socket: Socket) {}
+
+  // Conectarse a la sala del chat
+  joinRoom(room: string) {
+    this.socket.emit('join', room);
   }
 
-  addMessage(endpoint: String, data: any) {
-    return this.http.post(`${this.APIUrl}/${endpoint}/`, data);
+  // Enviar un mensaje
+  sendMessage(message: string) {
+    this.socket.emit('message', message);
+  }
+
+  // Recibir mensajes
+  getMessages(): Observable<string> {
+    return this.socket.fromEvent<string>('message');
   }
 }

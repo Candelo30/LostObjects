@@ -4,22 +4,16 @@ import { FormsModule } from '@angular/forms';
 import { UsuariosService } from '../service/users/usuarios.service';
 import { Router, RouterLink } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-mensajes',
   standalone: true,
-  imports: [FormsModule,RouterLink],
+  imports: [FormsModule, RouterLink, CommonModule],
   templateUrl: './mensajes.component.html',
   styleUrl: './mensajes.component.css',
 })
-export class MensajesComponent implements OnInit {
-  constructor(
-    private messageService: MensajesService,
-    private UsuariosService: UsuariosService,
-    private router : Router,
-    private cookies : CookieService
-  ) {}
-
+export class MensajesComponent {
   toggleMenu: boolean = false;
   mensajes: any[] = [];
   users: any[] = [];
@@ -30,71 +24,31 @@ export class MensajesComponent implements OnInit {
   mensajesFiltrados: any[] = [];
   IsOpenInput: boolean = false;
   foto = '';
+  constructor(
+    private chatService: MensajesService,
+    private UsuariosService: UsuariosService,
+    private router: Router,
+    private cookies: CookieService
+  ) {}
+
+  ngOnInit() {
+    this.chatService.getMessages().subscribe((message: string) => {
+      this.mensajes.push(message);
+    });
+  }
+
+  sendMessage() {
+    this.chatService.sendMessage(this.nuevoMensaje);
+    this.nuevoMensaje = '';
+  }
 
   ConseguirUsuario(user: string) {
     this.usuario_destinatario = user;
     this.filtrarMensajesPorUsuario(user);
   }
 
-  enviarMensaje() {
-    if (this.nuevoMensaje.trim()) {
-      const newMessage = {
-        fecha_creacion: `${new Date()}`, // Cambiado para usar la fecha actual
-        message: `${this.nuevoMensaje}`,
-        usuario: `${this.UsuariosService.nombreUsuario}`,
-        usuario_destinatario: `${this.usuario_destinatario}`,
-        imagen: `${this.imagen}`,
-      };
-      this.messageService.addMessage('message', newMessage).subscribe(
-        (Response) => {
-          alert('Se ha enviado correctamente');
-          console.log(newMessage);
-          this.nuevoMensaje = '';
-          // Actualizar la lista de mensajes después de enviar uno nuevo
-          this.getMesanjes();
-        },
-        (error) => {
-          alert('Ha habido un error');
-        }
-      );
-    }
-  }
-
   ShowMenu() {
     this.toggleMenu = !this.toggleMenu;
-  }
-
-  
-  
-
-  
-
-  ngOnInit(): void {
-    this.getMesanjes();
-    this.getUsers();
-    const loggedInUser = this.cookies.get('loggedInUser');
-    if (loggedInUser) {
-      const user = JSON.parse(loggedInUser);
-      this.foto = "http://localhost:8000/" + user.imagen_perfil;
-      
-
-      
-
-     
-
-    }
-
-    else {
-      this.router.navigate(["/login"])
-    
-    }
-  }
-
-  getMesanjes() {
-    this.messageService.getData('message').subscribe((data) => {
-      this.mensajes = data;
-      this.filtrarMensajesPorUsuario(this.usuario_destinatario); // Filtrar los mensajes por el usuario seleccionado inicialmente
-    });
   }
 
   filtrarMensajesPorUsuario(usuario: string) {
@@ -112,7 +66,7 @@ export class MensajesComponent implements OnInit {
     console.log(this.usuario);
   }
 
-  logout(){
+  logout() {
     this.UsuariosService.logout();
     this.router.navigate(['/login']);
   }
