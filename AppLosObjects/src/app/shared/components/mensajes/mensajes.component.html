@@ -1,0 +1,41 @@
+<app-header></app-header>
+
+<div class="chat-container">
+  <div class="sidebar">
+    <input type="text" class="search-bar" placeholder="Buscar..." />
+    <ul class="chat-list">
+      <li
+        *ngFor="let chat of chats"
+        (click)="selectChat(chat)"
+        class="chat-item"
+      >
+        <div class="chat-participants">
+          @for (subItemsChats of chat.participants; track subItemsChats) {
+          <img
+            [src]="subItemsChats.imagen_perfil"
+            alt="{{ subItemsChats.username }} profile"
+            class="profile-pic"
+          />
+          <span class="username">{{ subItemsChats.username }}</span>
+          }
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="chat-content">
+    <div class="messages">
+      <div *ngFor="let message of messages" class="message">
+        <strong>{{ message.sender }}</strong
+        >: {{ message.content }}
+      </div>
+    </div>
+    <div class="message-input">
+      <input
+        [(ngModel)]="newMessage"
+        class="message-field"
+        placeholder="Escribe un mensaje..."
+      />
+      <button class="send-button" (click)="sendMessage()">Enviar</button>
+    </div>
+  </div>
+</div>

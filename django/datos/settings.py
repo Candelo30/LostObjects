@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "api",
     "corsheaders",
-    "channels",
 ]
 
 CORS_ALLOW_METHODS = (
@@ -93,18 +92,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "datos.wsgi.application"
 
-# Configura ASGI para Channels
-ASGI_APPLICATION = "myproject.asgi.application"
-
-# Configura Redis como capa de canal
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [("127.0.0.1", 6379)],  # IP y puerto de Redis
-        },
-    },
-}
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases

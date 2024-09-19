@@ -28,10 +28,14 @@
 
     <div class="container-items__icons" [class]="{ show: toggleMenu == true }">
       <ul>
-        <li routerLink="/home">Inicio</li>
-        <li routerLink="/messages">Mensajes directos</li>
-        <li routerLink="profile">Perfil</li>
-        <li (click)="logout()">Cerrar sesion</li>
+        <li routerLink="/home"><i class="fas fa-home"></i> Inicio</li>
+        <li routerLink="/messages">
+          <i class="fas fa-envelope"></i> Mensajes directos
+        </li>
+        <li routerLink="/profile"><i class="fas fa-user"></i> Perfil</li>
+        <li (click)="logout()">
+          <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+        </li>
       </ul>
     </div>
   </div>
