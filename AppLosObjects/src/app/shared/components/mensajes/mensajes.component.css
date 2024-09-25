@@ -124,3 +124,15 @@
 .send-button:hover {
   background-color: #0056b3;
 }
+
+.emoji-mart {
+  position: absolute;
+
+  width: max-content;
+  bottom: 50px;
+  right: 10px;
+
+  overflow-y: scroll;
+  height: 426.5px;
+  padding: 0 6px 6px;
+}

@@ -31,10 +31,24 @@
     </div>
     <div class="message-input">
       <input
+        (blur)="onBlur()"
+        (focus)="onFocus()"
         [(ngModel)]="newMessage"
         class="message-field"
         placeholder="Escribe un mensaje..."
       />
+
+      <emoji-mart
+        class="emoji-mart"
+        [set]="'apple'"
+        *ngIf="showEmojiPicker"
+        (emojiSelect)="addEmoji($event)"
+        title="Pick your emoji…"
+      ></emoji-mart>
+      <!-- Toggle Emoji Picker Button -->
+      <button (click)="toggleEmojiPicker()">😀</button>
+
+      <!-- Send Message Button -->
       <button class="send-button" (click)="sendMessage()">Enviar</button>
     </div>
   </div>

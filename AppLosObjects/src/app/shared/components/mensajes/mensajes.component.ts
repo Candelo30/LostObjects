@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { MensajesService } from '../../../service/mensajes/mensajes.service';
 import { FormsModule } from '@angular/forms';
 import { UsuariosService } from '../../../service/users/usuarios.service';
@@ -6,13 +6,24 @@ import { Router, RouterLink } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../header/header.component';
+import { EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
+import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 
 @Component({
   selector: 'app-mensajes',
   standalone: true,
-  imports: [FormsModule, RouterLink, CommonModule, HeaderComponent],
+  imports: [
+    FormsModule,
+    RouterLink,
+    CommonModule,
+    HeaderComponent,
+    CommonModule,
+    PickerComponent,
+  ],
   templateUrl: './mensajes.component.html',
   styleUrl: './mensajes.component.css',
+
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class MensajesComponent implements OnInit {
   toggleMenu: boolean = false;
@@ -23,6 +34,35 @@ export class MensajesComponent implements OnInit {
   messages: any[] = [];
   selectedChat: any;
   newMessage: string = '';
+
+  //
+
+  showEmojiPicker: boolean = false;
+  set: string = 'twitter'; // Puedes cambiar el set de emojis si lo deseas
+
+  toggleEmojiPicker() {
+    this.showEmojiPicker = !this.showEmojiPicker;
+  }
+
+  addEmoji(event: any) {
+    const { newMessage } = this;
+    // Concatenar el emoji seleccionado al mensaje actual
+    const text = `${newMessage}${event.emoji.native}`;
+    this.newMessage = text;
+    // Cerrar el picker de emojis después de seleccionar (si lo prefieres)
+    this.showEmojiPicker = false;
+  }
+
+  onFocus() {
+    // Ocultar el picker de emojis cuando el campo de mensaje obtiene el foco
+    this.showEmojiPicker = false;
+  }
+
+  onBlur() {
+    console.log('onblur');
+  }
+
+  //
 
   constructor(
     private chatService: MensajesService,
