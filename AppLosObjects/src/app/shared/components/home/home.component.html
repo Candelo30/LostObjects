@@ -11,6 +11,7 @@
         </p>
       </div>
 
+
       <p>{{ items.descripcion }}</p>
 
       <div class="container-img">
@@ -49,3 +50,25 @@
     }
   </div>
 </main>
+@if (IsModalOpen != false) {
+
+  <aside>
+    <div class="container">
+      <h1>Crea Tu publicación</h1>
+  
+      <form action="">
+        <label for="">Descripción</label>
+  
+        <input type="text" placeholder="Descripción" name="descripcion" [(ngModel)]="descripcion" />
+  
+        <label for="">Imagen</label>
+        <input type="file"  name="imagen" id="" accept="image/*" (change)="onFiles($event)" />
+  
+        <div class="container-button">
+          <button class="submit" (click)="postData()" value="Enviar">Enviar</button>
+          <button class="cancel"(click)="ShowModal()">Cancelar</button> 
+        </div>
+      </form>
+    </div>
+  </aside>
+}

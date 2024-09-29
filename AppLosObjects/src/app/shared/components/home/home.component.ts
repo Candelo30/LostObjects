@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { routes } from '../../../app.routes';
 import { HeaderComponent } from '../header/header.component';
+import { EstadoService } from '../../../service/estado.service';
 
 @Component({
   selector: 'app-home',
@@ -31,10 +32,19 @@ export class HomeComponent implements OnInit {
     private publicationService: PublicationsService,
     private userService: UsuariosService,
     private cookies: CookieService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private melo: EstadoService
+  ) {
+    
+}
 
   ngOnInit(): void {
+    this.melo.isModalOpen$.subscribe((data)=>{
+    this.IsModalOpen=data
+    console.log(this.IsModalOpen)
+
+}
+)
     this.getData();
     const loggedInUser = this.cookies.get('loggedInUser');
     if (loggedInUser) {
@@ -62,10 +72,8 @@ export class HomeComponent implements OnInit {
   }
 
   ShowModal() {
-    this.IsModalOpen = !this.IsModalOpen;
-    if (this.IsModalOpen == true) {
-      this.ShowMenu();
-    }
+    this.melo.toggleModal()
+    
   }
 
   getData() {

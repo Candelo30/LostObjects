@@ -3,6 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { UsuariosService } from '../../../service/users/usuarios.service';
 import { FormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+import { EstadoService } from '../../../service/estado.service';
 
 @Component({
   selector: 'app-header',
@@ -22,8 +23,11 @@ export class HeaderComponent {
   constructor(
     private router: Router,
     private userService: UsuariosService,
-    private cookies: CookieService
-  ) {}
+    private cookies: CookieService,
+    private melo: EstadoService
+  ) {
+    
+  }
 
   ngOnInit(): void {
     const loggedInUser = this.cookies.get('loggedInUser');
@@ -42,10 +46,7 @@ export class HeaderComponent {
   }
 
   ShowModal() {
-    this.IsModalOpen = !this.IsModalOpen;
-    if (this.IsModalOpen == true) {
-      this.ShowMenu();
-    }
+   this.melo.toggleModal()
   }
 
   logout() {
