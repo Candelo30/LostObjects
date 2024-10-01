@@ -14,6 +14,11 @@ export class PublicationsService {
     return this.http.get(`${this.APIUrl}/${endpoint}`);
   }
 
+  // servicio para aplicar el filtro
+  getAllData(): Observable<any> {
+    return this.http.get(`${this.APIUrl}publication`);
+  }
+
   postData(endpoint: string, data : FormData): Observable<any>{
     return this.http.post(`${this.APIUrl}/${endpoint}`,data);
   }
