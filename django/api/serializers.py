@@ -44,11 +44,9 @@ class PubliSerializer(serializers.ModelSerializer):
 
 
 class MessageSerializer(serializers.ModelSerializer):
-    sender = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all())
-
     class Meta:
         model = Message
-        fields = ["id", "chat", "sender", "content", "timestamp"]
+        fields = ['chat', 'sender', 'content', 'image', 'created_at']
 
 
 class ChatSerializer(serializers.ModelSerializer):
