@@ -89,6 +89,9 @@
   background-color: #e9ecef;
   max-width: 80%;
 }
+.message-image{
+  width: 200px;
+}
 
 .message strong {
   color: #007bff;

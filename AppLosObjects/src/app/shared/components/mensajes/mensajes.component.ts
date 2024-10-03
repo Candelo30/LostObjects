@@ -9,6 +9,7 @@ import { HeaderComponent } from '../header/header.component';
 import { EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 
+
 @Component({
   selector: 'app-mensajes',
   standalone: true,
@@ -29,6 +30,7 @@ export class MensajesComponent implements OnInit {
   toggleMenu: boolean = false;
   foto = '';
   idUser = 0;
+  imageFile: File | null = null;
 
   chats: any[] = [];
   messages: any[] = [];
@@ -61,16 +63,16 @@ export class MensajesComponent implements OnInit {
   onBlur() {
     console.log('onblur');
   }
-
+  
   //
 
   constructor(
     private chatService: MensajesService,
     private UsuariosService: UsuariosService,
     private router: Router,
-    private cookies: CookieService
+    private cookies: CookieService,
+   
   ) {}
-
   ngOnInit(): void {
     this.getChats();
 
@@ -79,7 +81,7 @@ export class MensajesComponent implements OnInit {
       const user = JSON.parse(loggedInUser);
       this.idUser = user.id;
       this.foto = 'http://localhost:8000/' + user.imagen_perfil;
-
+      
       // Llamar a otros métodos como `publications` si es necesario
     } else {
       this.router.navigate(['/login']);
@@ -104,16 +106,32 @@ export class MensajesComponent implements OnInit {
     });
   }
 
-  sendMessage(): void {
-    if (this.newMessage.trim()) {
-      this.chatService
-        .sendMessage(this.selectedChat.id, this.newMessage, this.idUser)
-        .subscribe((message) => {
-          this.messages.push(message);
-          this.newMessage = '';
-        });
-    }
+
+onFileSelected(event: any): void {
+  const file: File = event.target.files[0];
+  if (file) {
+    this.imageFile = file;
   }
+}
+
+sendMessage(): void {
+  if (this.newMessage.trim() || this.imageFile) {
+    const formData = new FormData();
+    formData.append('chat', this.selectedChat.id.toString());
+    formData.append('content', this.newMessage);
+    formData.append('sender', this.idUser.toString());
+    if (this.imageFile) {
+      formData.append('image', this.imageFile);
+    }
+
+    this.chatService.sendMessage(formData).subscribe((message) => {
+      this.messages.push(message);
+      this.newMessage = '';
+      this.imageFile = null;
+    });
+  }
+}
+
 
   ShowMenu() {
     this.toggleMenu = !this.toggleMenu;
