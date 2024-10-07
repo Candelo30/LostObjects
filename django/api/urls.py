@@ -1,13 +1,16 @@
-from django.urls import path
-from .views import register,login, post, mostrar, profile, actualizar
+# api/urls.py
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import ChatViewSet, MessageViewSet
 
+# Crea una instancia de DefaultRouter
+router = DefaultRouter()
+
+# Registra los ViewSets con el router
+router.register(r"chats", ChatViewSet, basename="chat")
+router.register(r"messages", MessageViewSet)
+
+# Incluye las URLs del router en el patrón de URLs
 urlpatterns = [
-    path('register',register),
-    path('login', login),
-    path('publicar', post),
-    path('mostrar', mostrar),
-    path('perfil',profile ),
-    path('foto', actualizar)
+    path("", include(router.urls)),
 ]
-
-  

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { UsuariosService } from '../service/users/usuarios.service';
+import { UsuariosService } from '../../../service/users/usuarios.service';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +20,7 @@ export class RegisterComponent {
   TodosLosDatos: any[] = [];
 
   newUser = {
-    username:'',
+    username: '',
     first_name: '',
     last_name: '',
     edad: '',
@@ -44,7 +44,6 @@ export class RegisterComponent {
           alert('Has hecho el registro con éxito');
           this.userService.setToken(Response.token);
           this.router.navigate(['/login']);
-         
         },
         (Error) => {
           alert('Hay un error');

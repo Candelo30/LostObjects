@@ -1,18 +1,27 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Socket } from 'ngx-socket-io';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MensajesService {
   constructor(private http: HttpClient) {}
-  APIUrl = 'http://localhost:3003';
-  getData(endpoint: String): Observable<any> {
-    return this.http.get(`${this.APIUrl}/${endpoint}/`);
+
+  ApiUrl = 'http://localhost:8000';
+
+  getChats(): Observable<any> {
+    return this.http.get(`${this.ApiUrl}/chats/`);
   }
 
-  addMessage(endpoint: String, data: any) {
-    return this.http.post(`${this.APIUrl}/${endpoint}/`, data);
+  // Obtener mensajes de un chat específico
+  getMessages(chatId: number): Observable<any> {
+    return this.http.get(`${this.ApiUrl}/chats/${chatId}/messages/`);
   }
+
+  sendMessage(formData: FormData): Observable<any> {
+    return this.http.post(`${this.ApiUrl}/messages/`, formData);
+  }
+  
 }
