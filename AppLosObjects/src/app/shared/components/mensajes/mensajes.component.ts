@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../header/header.component';
 import { EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
+import { WebsocketService } from '../../../service/websocket.service';
 
 
 @Component({
@@ -75,6 +76,7 @@ export class MensajesComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.getChats();
+
 
     const loggedInUser = this.cookies.get('loggedInUser');
     if (loggedInUser) {

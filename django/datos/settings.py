@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -51,6 +52,9 @@ CORS_ALLOW_METHODS = (
     "PATCH",
     "POST",
     "PUT",
+)
+ASGI_APPLICATION = (
+    'datos.asgi.application'
 )
 
 REST_FRAMEWORK = {

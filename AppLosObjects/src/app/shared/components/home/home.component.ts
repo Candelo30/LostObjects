@@ -16,6 +16,9 @@ import { EstadoService } from '../../../service/estado.service';
   styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit {
+toggleLike(arg0: any) {
+throw new Error('Method not implemented.');
+}
   // Estos son los datos que tienes que crear en API o base de datos ! Para las Publicaciones
   baseUrl: string = 'http://localhost:8000/media/';
   nombreUsuario = '';
@@ -27,13 +30,16 @@ export class HomeComponent implements OnInit {
   base64Image: string | null = null;
   previewUrl: string | null = null;
   foto = '';
+  searchTerm: string = '';
+  publications: any[] = [];
 
   constructor(
     private publicationService: PublicationsService,
     private userService: UsuariosService,
     private cookies: CookieService,
     private router: Router,
-    private melo: EstadoService
+    private melo: EstadoService,
+    private publicationsservice:PublicationsService 
   ) {
     
 }
@@ -60,8 +66,13 @@ export class HomeComponent implements OnInit {
     } else {
       this.router.navigate(['/login']);
     }
+
+    this.publicationsservice.getAllData().subscribe((data: any) => {
+      this.publications = data.results;
+  });
   }
-  publications: any = [];
+
+  // publications: any = [];
 
   toggleMenu: boolean = false;
 
@@ -127,6 +138,13 @@ export class HomeComponent implements OnInit {
       this.ShowModal();
       window.location.reload();
     }
+  }
+
+   // metodo para filtrar datos
+   filterPublications() {
+    return this.publications.filter(publication =>
+      publication.descripcion.toLowerCase().includes(this.searchTerm.toLowerCase()) 
+    );
   }
 
   // buscar():void{

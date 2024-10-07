@@ -1,8 +1,18 @@
 <app-header></app-header>
 
+<div class="container-search">
+  <input
+    type="search"
+    placeholder="Barra de búsqueda"
+    class="input__search"
+    [(ngModel)]="searchTerm"
+    descripcion="search"
+  />
+</div>
+
 <main>
   <div class="container-publications">
-    @for (items of publications; track items.id) {
+    @for (items of filterPublications(); track items.id) {
     <div class="box">
       <div class="box-info">
         <p>
