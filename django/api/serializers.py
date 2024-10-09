@@ -31,24 +31,23 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class PubliSerializer(serializers.ModelSerializer):
-    nombre_usuario = serializers.PrimaryKeyRelatedField(
-        queryset=CustomUser.objects.all()
-    )
+    usuario_username = serializers.CharField(source="nombre_usuario.username", read_only=True)
+    
+
 
     class Meta:
         model = publication
-        fields = "__all__"
+        fields = ["nombre_usuario","descripcion","imagen","fecha_publicacion","usuario_username"]
 
     def create(self, validated_data):
         return publication.objects.create(**validated_data)
 
 
 class MessageSerializer(serializers.ModelSerializer):
-    sender = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all())
-
+    usuario_username = serializers.CharField(source="sender.username", read_only=True)
     class Meta:
         model = Message
-        fields = ["id", "chat", "sender", "content", "timestamp"]
+        fields = ['chat', 'sender', 'content', 'image', 'created_at','usuario_username']
 
 
 class ChatSerializer(serializers.ModelSerializer):
