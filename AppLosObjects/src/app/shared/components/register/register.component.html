@@ -3,6 +3,7 @@
     <section class="form-register">
       <h3>Registro</h3>
       <input
+        style="background-color: white;" 
         class="controls"
         type="text"
         name="username"
@@ -12,6 +13,7 @@
         required
       />
       <input
+        style="background-color: white;"
         class="controls"
         type="text"
         name="first_name"
@@ -21,6 +23,7 @@
         required
       />
       <input
+        style="background-color: white;"
         class="controls"
         type="text"
         name="last_name"
@@ -30,6 +33,7 @@
         required
       />
       <input
+        style="background-color: white;"
         class="controls"
         type="number"
         name="edad"
@@ -40,6 +44,7 @@
         [(ngModel)]="newUser.edad"
       />
       <input
+        style="background-color: white;"
         class="controls"
         type="number"
         name="telefono"
@@ -49,6 +54,7 @@
         [(ngModel)]="newUser.telefono"
       />
       <input
+        style="background-color: white;"
         class="controls"
         type="text"
         name="ubicacion"
@@ -58,6 +64,7 @@
         [(ngModel)]="newUser.ubicacion"
       />
       <input
+        style="background-color: white;"
         class="controls"
         type="email"
         name="email"
@@ -67,6 +74,7 @@
         [(ngModel)]="newUser.email"
       />
       <input
+        style="background-color: white;"
         class="controls"
         type="password"
         name="password"
@@ -75,11 +83,11 @@
         [(ngModel)]="newUser.password"
         required
       />
-      <p>Estoy de acuerdo con <a href="#">Terminos y Condiciones</a></p>
+      <!-- <p>Estoy de acuerdo con <a href="#">Terminos y Condiciones</a></p> -->
 
       <a><input class="botons" type="submit" value="Registrar" /></a>
 
-      <p><a routerLink="/login">¿Ya tengo cuenta?</a></p>
+      <p><a routerLink="/login" style="color: white;">¿Ya tengo cuenta?</a></p>
     </section>
   </form>
 </div>

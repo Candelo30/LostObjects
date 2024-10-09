@@ -3,6 +3,8 @@ import { Router, RouterLink } from '@angular/router';
 import { UsuariosService } from '../../../service/users/usuarios.service';
 import { FormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+import { EstadoService } from '../../../service/estado.service';
+import { PublicationsService } from '../../../service/publications/publications.service';
 
 @Component({
   selector: 'app-header',
@@ -18,12 +20,19 @@ export class HeaderComponent {
   nombreUsuario = '';
   foto = '';
   nombre_busqueda: string = '';
+  descripcion: string = '';
+  searchTerm: string = '';
+  publications: any[] = [];
 
   constructor(
     private router: Router,
     private userService: UsuariosService,
-    private cookies: CookieService
-  ) {}
+    private cookies: CookieService,
+    private melo: EstadoService,
+    private publicationsservice:PublicationsService
+  ) {
+    
+  }
 
   ngOnInit(): void {
     const loggedInUser = this.cookies.get('loggedInUser');
@@ -35,21 +44,29 @@ export class HeaderComponent {
     } else {
       this.router.navigate(['/login']);
     }
-  }
+
+    this.publicationsservice.getAllData().subscribe((data: any) => {
+      this.publications = data.results;
+  });
+}
 
   ShowMenu() {
     this.toggleMenu = !this.toggleMenu;
   }
 
   ShowModal() {
-    this.IsModalOpen = !this.IsModalOpen;
-    if (this.IsModalOpen == true) {
-      this.ShowMenu();
-    }
+   this.melo.toggleModal()
   }
 
   logout() {
     this.userService.logout();
     this.router.navigate(['/login']);
+  }
+
+  // metodo para filtrar datos
+  filterPublications() {
+    return this.publications.filter(publication =>
+      publication.descripcion.toLowerCase().includes(this.searchTerm.toLowerCase()) 
+    );
   }
 }

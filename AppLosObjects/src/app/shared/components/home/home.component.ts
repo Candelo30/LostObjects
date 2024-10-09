@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { routes } from '../../../app.routes';
 import { HeaderComponent } from '../header/header.component';
+import { EstadoService } from '../../../service/estado.service';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +16,9 @@ import { HeaderComponent } from '../header/header.component';
   styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit {
+toggleLike(arg0: any) {
+throw new Error('Method not implemented.');
+}
   // Estos son los datos que tienes que crear en API o base de datos ! Para las Publicaciones
   baseUrl: string = 'http://localhost:8000/media/';
   nombreUsuario = '';
@@ -26,15 +30,27 @@ export class HomeComponent implements OnInit {
   base64Image: string | null = null;
   previewUrl: string | null = null;
   foto = '';
+  searchTerm: string = '';
+  publications: any[] = [];
 
   constructor(
     private publicationService: PublicationsService,
     private userService: UsuariosService,
     private cookies: CookieService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private melo: EstadoService,
+    private publicationsservice:PublicationsService 
+  ) {
+    
+}
 
   ngOnInit(): void {
+    this.melo.isModalOpen$.subscribe((data)=>{
+    this.IsModalOpen=data
+    console.log(this.IsModalOpen)
+
+}
+)
     this.getData();
     const loggedInUser = this.cookies.get('loggedInUser');
     if (loggedInUser) {
@@ -50,8 +66,10 @@ export class HomeComponent implements OnInit {
     } else {
       this.router.navigate(['/login']);
     }
+
   }
-  publications: any = [];
+
+  // publications: any = [];
 
   toggleMenu: boolean = false;
 
@@ -62,16 +80,15 @@ export class HomeComponent implements OnInit {
   }
 
   ShowModal() {
-    this.IsModalOpen = !this.IsModalOpen;
-    if (this.IsModalOpen == true) {
-      this.ShowMenu();
-    }
+    this.melo.toggleModal()
+    
   }
 
   getData() {
     this.publicationService.getData('mostrar').subscribe((data) => {
       this.publications = data.map((publication: any) => {
         // Cambié 'item' a 'publication'
+        console.log(data)
         const imageUrl = publication.imagen.startsWith('http') // Cambié 'imagen' a 'imageUrl' para evitar conflicto
           ? publication.imagen
           : `${this.baseUrl}${publication.imagen.replace(/^\/media\//, '')}`;
@@ -119,6 +136,13 @@ export class HomeComponent implements OnInit {
       this.ShowModal();
       window.location.reload();
     }
+  }
+
+   // metodo para filtrar datos
+   filterPublications() {
+    return this.publications.filter(publication =>
+      publication.descripcion.toLowerCase().includes(this.searchTerm.toLowerCase()) 
+    );
   }
 
   // buscar():void{

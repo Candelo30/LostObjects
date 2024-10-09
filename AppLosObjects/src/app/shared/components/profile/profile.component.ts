@@ -5,11 +5,12 @@ import { UsuariosService } from '../../../service/users/usuarios.service';
 import { CookieService } from 'ngx-cookie-service';
 import { PublicationsService } from '../../../service/publications/publications.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, HeaderComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
 })

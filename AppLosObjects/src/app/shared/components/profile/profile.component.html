@@ -1,45 +1,4 @@
-<header>
-  <div class="brand">
-    <div class="brand-logo">
-      <img src="/brands.png" alt="Logo" />
-    </div>
-  </div>
-
-  <div class="container-search">
-    <input
-      type="search"
-      placeholder="Barra de búsqueda"
-      class="input__search"
-    />
-  </div>
-
-  <div class="container-right">
-    <button class="buttom__open-items" (click)="ShowMenu()">
-      <i
-        class="bx main-menu"
-        [class.bx-menu]="!toggleMenu"
-        [class.bx-x]="toggleMenu"
-      >
-      </i>
-    </button>
-    <div class="container__avatar-user">
-      <div class="avatar"></div>
-    </div>
-
-    <div class="container-items__icons" [class]="{ show: toggleMenu == true }">
-      <ul>
-        <li routerLink="/home"><i class="fas fa-home"></i> Inicio</li>
-        <li routerLink="/messages">
-          <i class="fas fa-envelope"></i> Mensajes directos
-        </li>
-        <li routerLink="/profile"><i class="fas fa-user"></i> Perfil</li>
-        <li (click)="logout()">
-          <i class="fas fa-sign-out-alt"></i> Cerrar sesión
-        </li>
-      </ul>
-    </div>
-  </div>
-</header>
+<app-header></app-header>
 <div class="scroll-container">
   <div class="container">
     <div class="photos">
